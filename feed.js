@@ -3,10 +3,14 @@
 // can instantiate the object and connect to with code like this:
 const stream = require('stream');
 
-let Feed = function(channel) {
+let Feed = function() {
   let readable = new stream.Readable({});
   let nums = ['one','two','three'];
   readable._read = () => {
+    //how does _read work under the hood - cant use for loop,
+    // does _read loop in some way? i guess its a stream so
+    // is it constant? or is it just running every time "readable" is emmitted?
+    // a while loop works instead of the if statement(but why?)
     if (nums.length) {
       return readable.push(nums.shift() + '\n');
     }
@@ -28,4 +32,6 @@ feed.on("end", () => console.log("info"));
 // one
 // two
 // three
-// Stretch goals: implement writable, such that you take the above and write output to a file instead.
+
+// Stretch goals: implement writable, such that you take the above and write output to a
+// file instead.
